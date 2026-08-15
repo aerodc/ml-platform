@@ -2,3 +2,5 @@
 .DS_Store
 mlflow.db
 mlruns/
+monitoring/drift_report.html
+monitoring/data/

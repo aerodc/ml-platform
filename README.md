@@ -16,7 +16,7 @@ so data scientists never touch infra.
 | `orchestration/` | Pipeline DAGs, retries, backfills (Airflow) |  ✅ done |
 | `training/` | Distributed training (Ray) | ✅ done   ← Ray DDP, loss dropping, config-swap scaling |
 | `registry/` | Model versioning, promotion, lineage (MLflow) | ✅ done |
-| `monitoring/` | Drift & skew detection (Evidently) | planned |
+| `monitoring/` | Drift & skew detection (Evidently) | ✅ done |
 
 ## Feature Store
 
