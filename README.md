@@ -12,7 +12,7 @@ so data scientists never touch infra.
 
 | Component | Demonstrates | Status |
 |-----------|--------------|--------|
-| `feature_store/` | Offline/online stores, point-in-time correctness, training/serving skew, storage-tech tradeoffs | in progress |
+| `feature_store/` | Offline/online stores, point-in-time correctness, training/serving skew, storage-tech tradeoffs | ✅ done  |
 | `orchestration/` | Pipeline DAGs, retries, backfills (Airflow) | planned |
 | `training/` | Distributed training (Ray) | planned |
 | `registry/` | Model versioning, promotion, lineage (MLflow) | planned |
@@ -41,6 +41,30 @@ config).
 
 Landscape: Feast (this build, precompute-and-materialize) vs Chalk (on-demand
 resolver graph, optimized for freshness) vs Tecton (enterprise).
+
+### Operational notes (learned debugging this)
+
+- **Empty online store despite "successful" materialization** almost always
+  means the materialization window didn't overlap the feature timestamps.
+  `materialize-incremental <end>` scans from a recent start; if your data is
+  older, it loads nothing and serving returns nulls — a silent failure with no
+  error. Fix: `feast materialize <start> <end>` bracketing the actual data range.
+  In production this is a real incident class — a drifted job window silently
+  starves the online store and the model serves nulls.
+
+- **Feast config paths are relative to the directory holding `feature_store.yaml`**,
+  not to where you launch the command. Since `feast apply` runs from inside
+  `feature_store/`, every path (registry, online store, source) drops the
+  `feature_store/` prefix.
+
+### How this runs in production
+
+Infrastructure and feature definitions have separate lifecycles. Infra (registry
+on RDS/S3, online store on Redis/DynamoDB, offline on S3+Athena) is provisioned
+once as versioned IaC (CDK/Terraform). Feature definitions live in git and are
+applied via `feast apply` in CI/CD on change — the same way schema migrations
+run. Materialization is a separate scheduled job (cron/Airflow). Conflating
+these — re-provisioning infra on every feature change — is the anti-pattern.
 
 ## Running
 
