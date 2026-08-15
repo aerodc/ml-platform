@@ -15,7 +15,7 @@ so data scientists never touch infra.
 | `feature_store/` | Offline/online stores, point-in-time correctness, training/serving skew, storage-tech tradeoffs | ✅ done  |
 | `orchestration/` | Pipeline DAGs, retries, backfills (Airflow) |  ✅ done |
 | `training/` | Distributed training (Ray) | ✅ done   ← Ray DDP, loss dropping, config-swap scaling |
-| `registry/` | Model versioning, promotion, lineage (MLflow) | planned |
+| `registry/` | Model versioning, promotion, lineage (MLflow) | ✅ done |
 | `monitoring/` | Drift & skew detection (Evidently) | planned |
 
 ## Feature Store

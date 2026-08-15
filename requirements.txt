@@ -11,3 +11,6 @@ torch>=2.2
 
 # note: Redis online store driver installs via `pip install "feast[redis]"`
 # note: Airflow runs in Docker (see orchestration/), not installed here
+
+
+pip install mlflow
