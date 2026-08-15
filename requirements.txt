@@ -1,4 +1,13 @@
+# feature store
 feast>=0.40
 pandas>=2.0
 pyarrow>=15.0
 numpy>=1.24
+
+
+# training (Ray)
+ray[train]>=2.30
+torch>=2.2
+
+# note: Redis online store driver installs via `pip install "feast[redis]"`
+# note: Airflow runs in Docker (see orchestration/), not installed here
