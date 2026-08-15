@@ -1,0 +1,54 @@
+# Minimal Airflow (LocalExecutor) for the orchestration component.
+# Not production HA — a single-node setup to learn DAGs, retries, scheduling.
+x-airflow-common: &airflow-common
+  build: .
+  image: ml-platform-airflow:latest
+  environment: &airflow-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__WEBSERVER__SECRET_KEY: "a-fixed-secret-for-local-dev"
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ../feature_store:/opt/feature_store   # so the DAG can run feast tasks
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db migrate
+        airflow users create --username airflow --password airflow \
+          --firstname a --lastname b --role Admin --email a@b.com || true
+    restart: on-failure
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+    restart: always
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always

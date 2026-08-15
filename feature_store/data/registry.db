@@ -2,27 +2,29 @@
 ;
 
 user"user_idJml_platform
-­‘ÿÓ ïì^™”ƒÔè«ŸÂ
+­‘ÿÓ ïì^ûºƒÔ˜´…È
 A
 "
 __dummy"
 __dummy_idJml_platform
-­‘ÿÓà¤ğ^™”ƒÔ°ˆ£Â1"$5e69cc03-fc35-4355-897a-d49ec23b4a1f*°”ƒÔØŸË©2å
+­‘ÿÓà¤ğ^ûºƒÔ¸¸È1"$6c5d7b27-62a3-4ee6-8102-c373b8787634*Á»ƒÔØÍ´w2ˆ
 ‡
 user_featuresml_platformuser"
 	clicks_7d"
-click_rate_7d2€ÎÚ:¡event_timestampZdata/user_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢data/user_features.parquet’™”ƒÔğ‚±·"™”ƒÔø†òÁ@b
-user_id’latestY
-­‘ÿÓ˜³ó^°”ƒÔÀÅÁ©
+click_rate_7d2€ÎÚ:¡event_timestampZdata/user_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢data/user_features.parquet’ûºƒÔø©™"ûºƒÔ úÑÇ@b
+user_id’latest|
+­‘ÿÓ˜³ó^Á»ƒÔè¿©w
 „Ê¤Ğø’ş€µùÓ
 €òÖÊ€¯úË
-€òÖÊ€¯úË0R—
+€òÖÊ€¯úË
+€µùÓ€ØşÓ
+€ØşÓ€µùÓ0R—
 ”
 ,feast.infra.online_stores.sqlite.SqliteTable"d
 G/Users/dixiliu/Workplace/ml-platform/feature_store/data/online_store.dbml_platform_user_featuresb­event_timestampZdata/user_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢data/user_features.parquetªml_platform’­‘ÿÓ¨¤¼Q"­‘ÿÓà¿ç^Š,
 
 ml_platform
-­‘ÿÓàêÖQ™”ƒÔÈëÊ·’‡
+­‘ÿÓàêÖQûºƒÔ¾™’‡
 „
 user_featuresml_platform"feature_view*¤
 …
