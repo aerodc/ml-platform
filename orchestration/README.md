@@ -38,6 +38,25 @@ alternatives: ZenML and Dagster (higher-level, ML-aware abstractions,
 asset/artifact-centric). Airflow chosen here because it's the baseline
 expectation and doesn't hide the scheduling mechanics.
 
+### Operational notes (learned debugging this)
+
+- **Workers need every dependency the tasks call.** A task that shells out to
+  `feast` fails with "command not found" on the stock Airflow image — the
+  binary has to be installed in the *worker* image, not just on the host. Fixed
+  with a custom image (`Dockerfile` extending `apache/airflow` + `pip install
+  feast`). This is why real Airflow deployments bake pipeline dependencies into
+  a custom image.
+
+- **Multi-component Airflow must share a signing key.** The webserver couldn't
+  fetch task logs from the scheduler (`403 Could not read served logs`) because
+  each component generated its own random `secret_key`. Pinning
+  `AIRFLOW__WEBSERVER__SECRET_KEY` across all components fixes log serving —
+  a distributed-systems config detail that shows up operating Airflow for real.
+
+- **Upstream failure cascades.** When `feast_apply` failed, the downstream tasks
+  showed `upstream_failed` and never ran — the dependency graph correctly
+  refusing to run steps whose prerequisites didn't succeed.
+  
 ## Running
 
 ```bash

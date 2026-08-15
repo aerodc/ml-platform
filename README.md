@@ -13,7 +13,7 @@ so data scientists never touch infra.
 | Component | Demonstrates | Status |
 |-----------|--------------|--------|
 | `feature_store/` | Offline/online stores, point-in-time correctness, training/serving skew, storage-tech tradeoffs | ✅ done  |
-| `orchestration/` | Pipeline DAGs, retries, backfills (Airflow) | planned |
+| `orchestration/` | Pipeline DAGs, retries, backfills (Airflow) |  ✅ done |
 | `training/` | Distributed training (Ray) | planned |
 | `registry/` | Model versioning, promotion, lineage (MLflow) | planned |
 | `monitoring/` | Drift & skew detection (Evidently) | planned |
