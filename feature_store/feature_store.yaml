@@ -1,13 +1,9 @@
 project: ml_platform
-registry: feature_store/data/registry.db
+registry: data/registry.db
 provider: local
 online_store:
   type: sqlite
-  path: feature_store/data/online_store.db
-# --- to swap to Redis (after `make swap-redis`), replace the block above with:
-# online_store:
-#   type: redis
-#   connection_string: "localhost:6379"
+  path: data/online_store.db
 offline_store:
   type: file
 entity_key_serialization_version: 2
