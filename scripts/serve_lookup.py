@@ -9,17 +9,11 @@ from feast import FeatureStore
 
 def main(user_ids=(0, 1, 2)):
     store = FeatureStore(repo_path="feature_store")
-
-    # TODO (you implement):
-    #   feats = store.get_online_features(
-    #       features=["user_features:clicks_7d", "user_features:click_rate_7d"],
-    #       entity_rows=[{"user_id": u} for u in user_ids],
-    #   ).to_dict()
-    #   print(feats)
-    #
-    #   LEARNING STEP: note this returns the LATEST materialized value (one row
-    #   per user) whereas the offline path returned time-travelled values.
-    raise NotImplementedError
+    feats = store.get_online_features(
+        features=["user_features:clicks_7d", "user_features:click_rate_7d"],
+        entity_rows=[{"user_id": u} for u in user_ids],
+    ).to_dict()
+    print(feats)
 
 
 if __name__ == "__main__":

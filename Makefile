@@ -10,7 +10,7 @@ train-retrieve:
 	python scripts/train_retrieve.py
 
 materialize:
-	cd feature_store && feast materialize-incremental $$(date +%Y-%m-%d)
+	cd feature_store && feast materialize 2026-01-01T00:00:00 2026-02-01T00:00:00
 
 serve-lookup:
 	python scripts/serve_lookup.py
